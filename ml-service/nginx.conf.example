@@ -1,0 +1,119 @@
+# ============================================================
+# iWAF NGINX Configuration
+# Place this in your nginx.conf or sites-enabled/
+# ============================================================
+#
+# Architecture:
+#   Client → NGINX (port 80/443)
+#     → ModSecurity CRS (rules check)
+#       → If CRS blocks: return 403 (logged by ModSecurity)
+#       → If CRS passes: proxy to ML Service (port 5000)
+#         → If ML blocks: return 403 (logged to MongoDB with blocked_by: ml_layer)
+#         → If ML allows (418): proxy to actual web app (port 3000)
+#
+# ============================================================
+
+upstream ml_service {
+    server 127.0.0.1:5000;
+}
+
+upstream web_app {
+    # Your actual web application (e.g., Juice Shop on port 3000)
+    server 127.0.0.1:3000;
+}
+
+server {
+    listen 80;
+    server_name localhost;
+
+    # ── ModSecurity ──────────────────────────────────────────
+    modsecurity on;
+    modsecurity_rules_file /etc/nginx/modsecurity/modsecurity.conf;
+
+    # ── Forward to ML Service ────────────────────────────────
+    location / {
+        # Pass original client info to ML service
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Host $host;
+
+        # Send request to ML service first
+        proxy_pass http://ml_service;
+        proxy_intercept_errors on;
+
+        # If ML returns 418 (benign), forward to actual app
+        error_page 418 = @forward_to_app;
+
+        # If ML returns 403 (malicious), NGINX returns 403 to client
+        # (default behavior, no extra config needed)
+    }
+
+    # ── Forward benign requests to actual web app ────────────
+    location @forward_to_app {
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Host $host;
+
+        proxy_pass http://web_app;
+    }
+
+    # ── ML Service health check (bypass ModSecurity) ─────────
+    location /ml/health {
+        proxy_pass http://ml_service/health;
+    }
+
+    location /ml/stats {
+        proxy_pass http://ml_service/stats;
+    }
+}
+
+# ============================================================
+# SETUP STEPS:
+# ============================================================
+#
+# 1. Install NGINX + ModSecurity:
+#    sudo apt install nginx libnginx-mod-http-modsecurity
+#
+# 2. Enable ModSecurity:
+#    Edit /etc/nginx/modsecurity/modsecurity.conf
+#    Set: SecRuleEngine On
+#
+# 3. Install OWASP CRS:
+#    cd /etc/nginx/modsecurity
+#    git clone https://github.com/coreruleset/coreruleset.git
+#    cp coreruleset/crs-setup.conf.example crs-setup.conf
+#    Include the rules in modsecurity.conf:
+#      Include /etc/nginx/modsecurity/crs-setup.conf
+#      Include /etc/nginx/modsecurity/coreruleset/rules/*.conf
+#
+# 4. Start ML Service:
+#    cd ml-service
+#    pip install -r requirements.txt
+#    # Put MONGODB_URI and ANTHROPIC_API_KEY in the project .env file (see .env.example)
+#    python app.py
+#
+#    OR with Docker:
+#    docker build -t iwaf-ml .
+#    docker run -p 5000:5000 --env-file ../.env iwaf-ml
+#
+# 5. Start your web app (e.g., Juice Shop):
+#    docker run -p 3000:3000 bkimminich/juice-shop
+#
+# 6. Test:
+#    # Benign (should reach app):
+#    curl http://localhost/
+#
+#    # SQLi (ModSecurity should block):
+#    curl "http://localhost/?id=' OR 1=1--"
+#
+#    # Obfuscated SQLi (ModSecurity passes, ML should catch):
+#    curl "http://localhost/?id=%27%20%4fR%20%271%27%3D%271"
+#
+#    # Check ML health:
+#    curl http://localhost/ml/health
+#
+#    # Check stats:
+#    curl http://localhost/ml/stats
+# ============================================================

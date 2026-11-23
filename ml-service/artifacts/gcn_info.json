@@ -1,0 +1,96 @@
+{
+  "model_type": "Multi-Relational-GCN",
+  "config": {
+    "data_dir": "./unified_v2",
+    "artifacts_dir": "./artifacts",
+    "gcn_input_dim": 256,
+    "gcn_hidden_dim": 128,
+    "gcn_embedding_dim": 64,
+    "num_relations": 4,
+    "dropout": 0.3,
+    "batch_size": 256,
+    "epochs": 30,
+    "learning_rate": 0.001,
+    "weight_decay": 1e-05,
+    "temperature": 0.3,
+    "similarity_threshold": 0.7,
+    "time_window_minutes": 30,
+    "samples_per_class": 800
+  },
+  "num_params": 205768,
+  "relation_weights_learned": [
+    0.22329692542552948,
+    0.3148968517780304,
+    0.23920026421546936,
+    0.22260600328445435
+  ],
+  "metrics": {
+    "untrained": {
+      "silhouette": 0.49867212772369385,
+      "homogeneity": 0.9734493010697817,
+      "nmi": 0.9734700560717079
+    },
+    "final": {
+      "silhouette": 0.9871402978897095,
+      "homogeneity": 1.0,
+      "nmi": 1.0
+    },
+    "best": {
+      "silhouette": 0.9762121438980103,
+      "homogeneity": 1.0,
+      "nmi": 1.0
+    }
+  },
+  "history": [
+    {
+      "epoch": 5,
+      "loss": 0.10423516246833299,
+      "silhouette": 0.9661545753479004,
+      "homogeneity": 0.9991064141374951,
+      "nmi": 0.9991064867432363
+    },
+    {
+      "epoch": 10,
+      "loss": 0.09719682602505934,
+      "silhouette": 0.9762121438980103,
+      "homogeneity": 1.0,
+      "nmi": 1.0
+    },
+    {
+      "epoch": 15,
+      "loss": 0.09428269729802483,
+      "silhouette": 0.9814192652702332,
+      "homogeneity": 1.0,
+      "nmi": 1.0
+    },
+    {
+      "epoch": 20,
+      "loss": 0.09400838535082967,
+      "silhouette": 0.9830684661865234,
+      "homogeneity": 1.0,
+      "nmi": 1.0
+    },
+    {
+      "epoch": 25,
+      "loss": 0.09305948411163531,
+      "silhouette": 0.9839922189712524,
+      "homogeneity": 1.0,
+      "nmi": 1.0
+    },
+    {
+      "epoch": 30,
+      "loss": 0.09163359278126766,
+      "silhouette": 0.9871402978897095,
+      "homogeneity": 1.0,
+      "nmi": 1.0
+    }
+  ],
+  "classes": [
+    "benign",
+    "cmdi",
+    "lfi",
+    "probe",
+    "sqli",
+    "xss"
+  ]
+}

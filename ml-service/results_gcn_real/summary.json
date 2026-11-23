@@ -1,0 +1,223 @@
+{
+  "conditions": [
+    "A_synthetic",
+    "B_real_class_sup",
+    "C_real_ip_sup"
+  ],
+  "results": {
+    "A_synthetic": {
+      "condition": "A \u00b7 synthetic IPs/timestamps (replicates original setup)",
+      "n_samples": 4800,
+      "n_unique_ips": 95,
+      "ip_supervised": false,
+      "initial_metrics": {
+        "silhouette": 0.5277493000030518,
+        "homogeneity": 0.9218857734940142,
+        "nmi": 0.922249503724397
+      },
+      "final_metrics": {
+        "silhouette": 0.985685408115387,
+        "homogeneity": 1.0,
+        "nmi": 1.0
+      },
+      "relation_weights": {
+        "content_similarity": 0.22316032648086548,
+        "same_source_ip": 0.30596375465393066,
+        "temporal_proximity": 0.24777771532535553,
+        "same_path": 0.2230982631444931
+      },
+      "history": [
+        {
+          "epoch": 5,
+          "loss": 0.1073295807367877,
+          "silhouette": 0.9574731588363647,
+          "homogeneity": 1.0,
+          "nmi": 1.0
+        },
+        {
+          "epoch": 10,
+          "loss": 0.09794314048792187,
+          "silhouette": 0.972796618938446,
+          "homogeneity": 1.0,
+          "nmi": 1.0
+        },
+        {
+          "epoch": 15,
+          "loss": 0.09563872022064109,
+          "silhouette": 0.9762824773788452,
+          "homogeneity": 1.0,
+          "nmi": 1.0
+        },
+        {
+          "epoch": 20,
+          "loss": 0.09552153788114849,
+          "silhouette": 0.9784952998161316,
+          "homogeneity": 1.0,
+          "nmi": 1.0
+        },
+        {
+          "epoch": 25,
+          "loss": 0.09176561079527203,
+          "silhouette": 0.9828599095344543,
+          "homogeneity": 1.0,
+          "nmi": 1.0
+        },
+        {
+          "epoch": 30,
+          "loss": 0.0920140496210048,
+          "silhouette": 0.985685408115387,
+          "homogeneity": 1.0,
+          "nmi": 1.0
+        }
+      ]
+    },
+    "B_real_class_sup": {
+      "condition": "B \u00b7 real IPs/timestamps, class-supervised loss",
+      "n_samples": 3427,
+      "n_unique_ips": 728,
+      "ip_supervised": false,
+      "initial_metrics": {
+        "silhouette": 0.36100783944129944,
+        "homogeneity": 0.441520310633255,
+        "nmi": 0.43646584029842994
+      },
+      "final_metrics": {
+        "silhouette": 0.8418710231781006,
+        "homogeneity": 0.9233844070371954,
+        "nmi": 0.9228556616652072
+      },
+      "relation_weights": {
+        "content_similarity": 0.21324476599693298,
+        "same_source_ip": 0.29201051592826843,
+        "temporal_proximity": 0.23162157833576202,
+        "same_path": 0.26312318444252014
+      },
+      "history": [
+        {
+          "epoch": 5,
+          "loss": 0.2913745247891971,
+          "silhouette": 0.8155410885810852,
+          "homogeneity": 0.8395638243375687,
+          "nmi": 0.8374318276027073
+        },
+        {
+          "epoch": 10,
+          "loss": 0.23833896006856645,
+          "silhouette": 0.8227077722549438,
+          "homogeneity": 0.8736527155159886,
+          "nmi": 0.8729278726263531
+        },
+        {
+          "epoch": 15,
+          "loss": 0.2178911886044911,
+          "silhouette": 0.8315253853797913,
+          "homogeneity": 0.8935550335274253,
+          "nmi": 0.8927991561066868
+        },
+        {
+          "epoch": 20,
+          "loss": 0.2093392653124673,
+          "silhouette": 0.8458239436149597,
+          "homogeneity": 0.9042503153666064,
+          "nmi": 0.9039065311968302
+        },
+        {
+          "epoch": 25,
+          "loss": 0.18553510734013148,
+          "silhouette": 0.85302734375,
+          "homogeneity": 0.9194041775331314,
+          "nmi": 0.918842648503652
+        },
+        {
+          "epoch": 30,
+          "loss": 0.1798664310148784,
+          "silhouette": 0.8418710231781006,
+          "homogeneity": 0.9233844070371954,
+          "nmi": 0.9228556616652072
+        }
+      ]
+    },
+    "C_real_ip_sup": {
+      "condition": "C \u00b7 real IPs/timestamps, IP-supervised loss (no class info)",
+      "n_samples": 3427,
+      "n_unique_ips": 728,
+      "ip_supervised": true,
+      "initial_metrics": {
+        "silhouette": 0.3386412262916565,
+        "homogeneity": 0.48685693983694817,
+        "nmi": 0.4928506692736364
+      },
+      "final_metrics": {
+        "silhouette": 0.4647004008293152,
+        "homogeneity": 0.4672380807710048,
+        "nmi": 0.4637124441757588
+      },
+      "relation_weights": {
+        "content_similarity": 0.2265646904706955,
+        "same_source_ip": 0.3219083845615387,
+        "temporal_proximity": 0.2248465120792389,
+        "same_path": 0.22668039798736572
+      },
+      "history": [
+        {
+          "epoch": 5,
+          "loss": 1.4536189096314567,
+          "silhouette": 0.5225560665130615,
+          "homogeneity": 0.5814291139436448,
+          "nmi": 0.5803591672509204
+        },
+        {
+          "epoch": 10,
+          "loss": 1.3060459111418043,
+          "silhouette": 0.5296923518180847,
+          "homogeneity": 0.5021911821079705,
+          "nmi": 0.5131896167712303
+        },
+        {
+          "epoch": 15,
+          "loss": 1.2260354587009974,
+          "silhouette": 0.502780556678772,
+          "homogeneity": 0.4978345782704704,
+          "nmi": 0.5092526735720708
+        },
+        {
+          "epoch": 20,
+          "loss": 1.1002938279083796,
+          "silhouette": 0.4830915331840515,
+          "homogeneity": 0.48767624244162994,
+          "nmi": 0.5003479374347501
+        },
+        {
+          "epoch": 25,
+          "loss": 1.0628966646535056,
+          "silhouette": 0.4704686105251312,
+          "homogeneity": 0.44693413663536347,
+          "nmi": 0.4537607666411296
+        },
+        {
+          "epoch": 30,
+          "loss": 1.0028416769845145,
+          "silhouette": 0.4647004008293152,
+          "homogeneity": 0.4672380807710048,
+          "nmi": 0.4637124441757588
+        }
+      ]
+    }
+  },
+  "config": {
+    "gcn_input_dim": 256,
+    "gcn_hidden_dim": 128,
+    "gcn_embedding_dim": 64,
+    "num_relations": 4,
+    "dropout": 0.3,
+    "batch_size": 256,
+    "epochs": 30,
+    "learning_rate": 0.001,
+    "weight_decay": 1e-05,
+    "temperature": 0.3,
+    "similarity_threshold": 0.7,
+    "time_window_minutes": 30,
+    "samples_per_class": 800,
+    "device": "cuda"
+  }
+}

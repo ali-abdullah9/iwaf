@@ -1,0 +1,26 @@
+{
+  "model_type": "BiLSTM-Attention-Meta",
+  "vocab_size": 101,
+  "num_classes": 6,
+  "classes": [
+    "benign",
+    "cmdi",
+    "lfi",
+    "probe",
+    "sqli",
+    "xss"
+  ],
+  "config": {
+    "max_len": 384,
+    "embedding_dim": 64,
+    "hidden_dim": 128,
+    "num_layers": 2,
+    "meta_features_dim": 12,
+    "dropout": 0.4
+  },
+  "metrics": {
+    "test_acc": 0.9849491790461298,
+    "adversarial_acc": 1.0,
+    "real_world_acc": 1.0
+  }
+}

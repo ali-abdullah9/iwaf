@@ -1,0 +1,47 @@
+# Secrets
+.env
+*.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Model weights and serialized objects
+*.pt
+*.pth
+*.h5
+*.pkl
+*.onnx
+*.safetensors
+*.bin
+
+# Data and logs
+data/
+datasets/
+unified_v2/
+logs/
+*.log
+*.csv
+*.csv.gz
+*.jsonl
+*.zip
+ml-service/results_llm/run_log.json
+training/baselines/results/external_bypass.json
+
+# Media
+*.mp4
+
+# IDE and OS files
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db

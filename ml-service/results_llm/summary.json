@@ -1,0 +1,54 @@
+{
+  "providers": {
+    "Anthropic": {
+      "n_runs": 10,
+      "n_clusters_attempted": 88,
+      "n_rules_produced": 88,
+      "n_declined": 0,
+      "decline_rate": 0.0,
+      "n_valid_regex": 88,
+      "n_well_formed_secrule": 88,
+      "fp_rate_dev_mean": 2.272727272727273e-05,
+      "fp_rate_dev_p95": 0.0,
+      "fp_rate_holdout_mean": 4.545454545454546e-05,
+      "fp_rate_holdout_p95": 0.0,
+      "verdict_distribution_holdout": {
+        "SAFE": 86,
+        "ACCEPTABLE": 2
+      },
+      "n_admin_reviewable": 88,
+      "n_admin_reviewable_holdout_safe": 88,
+      "generalization_to_holdout": 1.0
+    },
+    "Heuristic": {
+      "n_runs": 10,
+      "n_clusters_attempted": 88,
+      "n_rules_produced": 88,
+      "n_declined": 0,
+      "decline_rate": 0.0,
+      "n_valid_regex": 0,
+      "n_well_formed_secrule": 88,
+      "fp_rate_dev_mean": null,
+      "fp_rate_dev_p95": null,
+      "fp_rate_holdout_mean": null,
+      "fp_rate_holdout_p95": null,
+      "verdict_distribution_holdout": {
+        "NO_PATTERN": 88
+      },
+      "n_admin_reviewable": 0,
+      "n_admin_reviewable_holdout_safe": 0,
+      "generalization_to_holdout": 0.0
+    }
+  },
+  "config": {
+    "zenodo": "zenodo_full_30day.csv",
+    "train_csv": "unified_v2/train.csv",
+    "bilstm_dir": "artifacts",
+    "out": "results_llm",
+    "runs": 10,
+    "window_size": 100,
+    "n_benign_dev": 500,
+    "n_benign_holdout": 500,
+    "skip_llm": false
+  }
+}
