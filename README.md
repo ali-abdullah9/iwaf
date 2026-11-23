@@ -1,6 +1,6 @@
 # iWAF – Intelligent Web Application Firewall
 
-Final Year Project, NUST SEECS, 2026 (grade A)
+Final Year Project, NUST SEECS, 2026
 
 ## Overview
 
